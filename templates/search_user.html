@@ -1,0 +1,61 @@
+<script>
+    
+    $( document ).ready( function( ){
+        $( "#search_bar" ).keyup( function( ) {        
+            $( "#users_list" ).empty( );
+            var user_input = $( "#search_bar" ).val( ).trim( );
+
+            if (user_input.length >= 3){
+                console.log(user_input);
+                $.ajax({
+                    type: 'POST',
+                    data: {"user_input":user_input},
+                    url: "/display_users",
+                    success: function (data) {
+                        $( "#users_list" ).empty( );
+                        $("#users_list").html(data);
+
+                    },
+                    error: function(error) {
+                    console.log(error);
+                }
+                });
+            }
+            });
+    
+    } );
+
+</script>
+
+<style>
+    #block{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #head{
+        font-size: 24px;
+        margin: 15px;
+
+    }
+
+    #search_bar{
+        font-size: 16px;
+        height: 30px;
+        width: 75%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+</style>
+
+<div id="block">
+    <p id="head">Szukaj użytkowników</p>
+    <input type="text" id="search_bar" placeholder="Wyszukaj..."/>
+    <div id="users_list">
+        
+    </div>
+    
+
+</div>

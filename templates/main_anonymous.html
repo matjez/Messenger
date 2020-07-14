@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Messenger</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main_anonymous.css')}}"/>
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/fav1.ico')}}"/>
+</head>
+<body>
+    <div class="banner">
+        <div class="banner_left">
+            <img src="{{url_for('static',filename='img/logo.png')}}" alt="MESSENGER" class="banner_logo"/>
+        </div>
+        <div class="banner_right">
+            <form class="login_form" action="{{url_for('login')}}" method="POST">
+                <input type="text" name="username" placeholder="Login" />
+                <input type="password" name="password" placeholder="Hasło"/>
+                <input type="submit" name="sub" value="Zaloguj" />
+            </form>
+            <a class="forgotten_password" href="{{url_for('forgotten_password')}}">Przypomnij hasło</a>
+            
+        </div>
+
+
+    </div>
+    <div class="content">
+        <div class="left_content">
+            <h1>ZAREJESTRUJ SIĘ</h1>
+            <img src="static/img/reg.jpg" alt="Ni ma obrazka :(" style="width:450px;height:450px;"/>
+        </div>
+        <div class="right_content"> 
+            <form class="register" action="{{url_for('register')}}" method="POST" id="register_form"><br/> 
+                <input type="text" name="username"  placeholder="Login"/><br/>
+                <input type="password" name="password" placeholder="Hasło"/><br/>
+                <input type="password" name="password_repeat" placeholder="Powtórz hasło"/><br/>
+                <input type="email" name="email" placeholder="E-mail"/><br/>
+                <input type="text" name="first_name" placeholder="Imię" /><br/>
+                <input type="text" name="second_name" placeholder="Drugie imię"/><br/>
+                <input type="text" name="last_name" placeholder="Nazwisko"/><br/>
+                <input type="number" min="0" step="1" name="phone_number" placeholder="Numer telefonu"/><br/>
+                <input type="date" name="birth_date" placeholder="Data urodzenia" /><br/>
+                <h3 id="accept_reg">Akceptuję <a href="static/txt/reg.txt">regulamin</a></h3>
+                <input type="checkbox" name="agreed" placeholder="Zgadzam się" /><br/>
+                <input type="submit" name="sub" value="Zarejestruj" onclick="return validate()"/><br/>
+            </form> 
+            <script>
+                function validate(){
+                    var username = document.forms["register_form"]["username"].value;
+                    var password = document.forms["register_form"]["password"].value;
+                    var password_repeat = document.forms["register_form"]["password_repeat"].value;
+                    var email = document.forms["register_form"]["email"].value;
+                    var first_name = document.forms["register_form"]["first_name"].value;
+                    var second_name = document.forms["register_form"]["second_name"].value;
+                    var last_name = document.forms["register_form"]["last_name"].value;
+                    var phone_number = document.forms["register_form"]["birth_date"].value;
+                    var birth_date = document.forms["register_form"]["username"].value;
+                    var  agreed = document.forms["register_form"]["agreed"].value;
+
+                    if(username.length < 3 || username.length > 32){
+                        alert("Nieprawidłowa długość loginu (5-32).");
+                        return false;
+                    } 
+
+                    if(password.length < 8 || password.length > 64){
+                        alert("Nieprawidłowa długość hasła (8-64).");
+                        return false;
+                    } 
+                 /* zrobic walidwanie znakow  */
+  
+                    if(password != password_repeat){
+                        alert("Podane hasła nie są identyczne.");
+                        return false;
+                    } 
+                    if(email.length < 5 || email.length > 64){  /* walidacje mejla zrobic*/
+                        alert("Nieprawidłowy adres email.");
+                        return false;
+                    } 
+                    if(first_name.length < 3 || first_name.length > 32){
+                        alert("Nieprawidłowa długość imienia (3-32).");
+                        return false;
+                    } 
+                    if(first_name.length < 3 || first_name.length > 48){
+                        alert("Nieprawidłowa długość nazwiska (3-48).");
+                        return false;
+                    } 
+                    if(phone_number.length < 7 || phone_number.length > 11){
+                        alert("Nieprawidłowy numer telefonu.");
+                        return false;
+                    } 
+                    if(birth_date == ""){
+                        alert("Nieprawidłowa data urodzenia.");
+                        return false;
+                    } 
+                    if(agreed != "on"){
+                        alert("Wymagana jest akceptacja regulaminu.");
+                        return false;
+                    } 
+                }
+            </script>
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        <a href="{{url_for('about')}}">O komunikatorze</a>
+        <a href="{{url_for('rules')}}">Regulamin</a>
+        <a href="{{url_for('help')}}">Pomoc</a>
+        <a href="{{url_for('login')}}">Rejestracja</a> 
+
+    </div>
+</body>

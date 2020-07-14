@@ -1,0 +1,35 @@
+{% block content %}
+<html>
+    <head>
+        <meta charset="utf8"/>
+        <title>Aktywacja konta</title>    
+        <link rel="shortcut icon" href="{{url_for('static',filename='img/fav1.ico')}}"/>
+        <link rel="stylesheet" href="{{url_for('static',filename='css/activate.css')}}"/>
+    </head>
+    <body>
+    <div id="banner">
+        
+    </div>    
+
+    <div id="content">
+        <div id="window">
+        <p id="upper_text">Aktywuj swoje konto</p>
+        <form action="{{url_for('activation_confirm')}}" method="POST">
+            <input type="hidden" value="{{code}}" name="code"/>
+            <input type="submit" value="Aktywuj" id="sub"/> 
+            <p id="bottom_text">Po kliknięciu zostaniesz przekierowany na stronę główną, gdzie możesz się zalogować.</p>
+        </form>
+    </div>
+        
+    </div>    
+
+    <div id="footer">
+        <a href="{{url_for('about')}}">O komunikatorze</a>
+        <a href="{{url_for('rules')}}">Regulamin</a>
+        <a href="{{url_for('help')}}">Pomoc</a>
+        <a href="{{url_for('login')}}">Rejestracja</a> 
+
+    </div>
+    </body>
+</html>
+{% endblock content %}

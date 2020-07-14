@@ -1,0 +1,295 @@
+{% block content %}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Messenger</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main_user.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/right_menu.css')}}"/>
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/fav1.ico')}}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>    
+</head>
+<body>
+
+    <div class="banner">
+        <div class="banner_left">
+            <img src="{{url_for('static',filename='img/logo.png')}}" alt="MESSENGER" class="banner_logo"/>
+        </div>
+        <div class="banner_right">
+            <div class="dropdown">
+                <button onclick="dropdown()" class="dropbutton">OPCJE</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="{{url_for('home')}}">Czat</a>
+                        <a href="{{url_for('profile')}}">Profil</a>
+                        <a href="{{url_for('settings')}}">Ustawienia</a>
+                        <a href="{{url_for('logout')}}" id="logout">Wyloguj</a>
+                    </div>
+            </div>
+        </div>
+
+          
+          <script>
+
+          function dropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+          }
+          
+          window.onclick = function(event) {
+            if (!event.target.matches('.dropbutton')) {
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              var i;
+              for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                }
+              }
+            }
+          }
+          </script>
+    </div>
+    <div class="content">
+        <div class="left_content" id="left_content">
+                {% for name, token in segments %}
+                    <button class="friends" id={{token}} onclick="choose_friend(this.id)">{{name}}</button></br>
+                {% endfor %}
+
+                <script type="text/javascript">
+                    var friend_name = undefined;
+                    if($('.left_content').is(':empty')){
+                        var friend_name = undefined;
+                    }
+                    else {
+                        var friend_name = document.getElementById("left_content").firstElementChild.id;
+                        window.current_user = friend_name
+                    }
+                </script>
+
+                <script type="text/javascript">
+                var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+
+                function choose_friend(id){   
+                        window.friend_name = id;
+                        window.current_user = id
+
+ 
+                         $.ajax({
+                         type: 'POST',
+                         data: {"friend_name":window.current_user},
+                         url: "/info",
+                         success: function (data) {
+
+                             $( ".sidebar_content" ).empty( );
+                             $(".sidebar_content").html(data);
+
+                         },
+                         error: function(error) {
+                         console.log(error);
+                     }
+                 });                
+
+                //         $(document).ready(function(){
+                //         $.ajax({
+                //         type: 'POST',
+                //         data: {"friend_name":window.current_user},
+                //         url: "/info",
+                //         success: function (data) {
+
+                //             $( ".sidebar_content" ).empty( );
+                //             $(".sidebar_content").html(data);
+
+                //         },
+                //         error: function(error) {
+                //         console.log(error);
+                //     }
+                // });
+                        
+                //     $(".sidebar_content").load("/info")
+                // });
+        
+                        
+                        socket.on( 'connect', function() {
+                            socket.emit( 'message', {
+                            friend_chat: friend_name,
+                            message: ""
+    
+                            } )})
+                        socket.emit( 'message', {
+                            friend_chat: friend_name,
+                            message: ""
+                        } )
+                    
+                        
+                    }
+                
+
+                </script>
+        </div>
+        <div class="center_content">
+            <h3 style='color: #ccc;font-size: 30px;'>Brak wiadomości...</h3>
+            <div class="message_holder" id="message_holder">
+                <script type="text/javascript">
+                    $('.message_holder').on('DOMSubtreeModified', function(){
+                    var objDiv = document.getElementById("message_holder");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                    });
+                </script>
+            </div>
+
+            <form class="window" action="" method="POST">
+                <textarea class="message" placeholder="Napisz wiadomość..."></textarea>
+                <button id="send">Wyślij</button>
+            </form>
+            
+
+            <script type="text/javascript">
+                var socket = io.connect('http://' + document.domain + ':' + location.port);
+                socket.on( 'connect', function() {
+                    socket.emit( 'message', {
+                    friend_chat: friend_name,
+                    message: ""
+                    } )
+                    var form = $( '#send' ).on( 'click', function( e ) {
+                    e.preventDefault()
+                    let user_input = $( '.message' ).val();
+                    if (user_input == ""){
+                        return false;
+                    }
+                    socket.emit( 'message', {
+                        friend_chat: friend_name,
+                        message : user_input
+
+                    } )
+                    socket.emit( 'chat_update', {
+                        friend_chat: friend_name,
+                        message : user_input
+
+                    } )
+                    $( '.message' ).val( '' ).focus()
+                    } )
+                } )
+                
+                socket.on( 'my response', function( msg ) {
+                    if(typeof msg[0].message !== 'undefined' ) {
+                        $( 'h3' ).remove();
+                        $( 'div.message_holder' ).empty();
+                        var i=0;
+                        for (var line of msg){
+                            $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg[i].user_name+'</b> '+msg[i].message+'</div>' );
+                            i += 1;
+                        }
+                    
+                    }
+                    })
+                socket.on( 'chat_update', function( msg ) {
+                    if(typeof msg[0].message !== 'undefined' ) {
+                        $( 'h3' ).remove();
+                        $( 'div.message_holder' ).empty();  
+                        var i=0;
+                        for (var line of msg){
+                            $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg[i].user_name+'</b> '+msg[i].message+'</div>' );
+                            i += 1;
+                        }
+                    
+                    }
+                    })
+            </script>
+
+        </div>
+        <div class="right_content">
+            <script type="text/javascript">
+
+                
+                $(document).ready(function(){
+
+                    
+                $('.toggle-btn').on('click',function(){
+                    document.getElementById("sidebar").classList.toggle('active');    
+                    
+                });
+                $('#info').on('click',function(){
+                    console.log(window.current_user)
+                    document.getElementById("sidebar").classList.toggle('active');
+                        $.ajax({
+                        type: 'POST',
+                        data: {"friend_name":window.current_user},
+                        url: "/info",
+                        success: function (data) {
+
+                            $( ".sidebar_content" ).empty( );
+                            $(".sidebar_content").html(data);
+
+                        },
+                        error: function(error) {
+                        console.log(error);
+                    }
+                });
+                    
+                });           
+                
+                $(window).on('load',function(){
+                        $.ajax({
+                        type: 'POST',
+                        data: {"friend_name":window.current_user},
+                        url: "/info",
+                        success: function (data) {
+
+                            $( ".sidebar_content" ).empty( );
+                            $(".sidebar_content").html(data);
+
+                        },
+                        error: function(error) {
+                        console.log(error);
+                    }
+                });
+                    
+                });                
+                
+                $('#invites').on('click',function(){
+                    document.getElementById("sidebar").classList.toggle('active');
+                    $( '.sidebar_content' ).empty();
+                    $(".sidebar_content").load("/invites");
+                });
+                $('#search').on('click',function(){
+                    document.getElementById("sidebar").classList.toggle('active');
+                    $(".sidebar_content").load("/search_user");
+                });
+            });
+            </script>
+
+            <div class="toggle-btn">
+                <a>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="sidebar_content">
+                
+            </div>
+
+            <div id="sidebar">
+                <div class="toggle-btn">
+                    <a>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a>
+                </div>
+
+            <ul>
+            <li id="info" class="sidebar_list">INFORMACJE</li>
+            <li id="invites" class="sidebar_list">ZAPOROSZENIA</li>
+            <li id="search" class="sidebar_list">SZUKAJ UŻYTKOWNIKA</li>
+            </ul>
+            </div>
+            
+
+            </div>
+    </div>
+    <div class="footer">
+
+    </div>
+</body>
+{% endblock content %}

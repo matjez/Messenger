@@ -1,0 +1,168 @@
+*{
+    margin: 0;
+}
+
+.banner{
+    height: 10vh;
+    background-image: linear-gradient(to top, #00d3ff, #00dfff, #00eafb, #00f5f4, #00ffe9);
+}
+
+.banner_left{
+    width: 60%;
+    float: left;
+}
+
+.banner_right{
+    width: 40%;
+    float:left;
+    
+}
+
+.banner_logo{
+    width: auto;
+    height: 10vh;
+    margin-left: 25px;
+}
+
+.left{
+    height: 75vh;
+    float: left;
+    background-color: whitesmoke;
+    width: 30%;
+}
+
+.right{
+    height: 75vh;
+    float: left;
+    width: 70%;
+}
+
+.footer{
+    height: 15vh;
+    clear: both;
+    background-image: linear-gradient(to top, #00d3ff, #00dfff, #00eafb, #00f5f4, #00ffe9);
+}
+
+.flex_options{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.opt_row{
+    max-height: 200px;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+
+}
+
+.opt{
+    max-width: 200px;
+    max-height: 200px;
+    margin: 5px;
+    padding: 5px;
+    width: 40%;
+    height: 10vh;
+    background-color: green;
+    flex: 1;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 10vh;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+.dropbutton {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+.dropbutton:hover, .dropbutton:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+#logout{
+    background-color: rgb(245, 33, 33);
+    color: white;
+}
+  
+.dropdown a:hover {
+    background-color: #ddd;
+}
+  
+.show {
+    display: block;
+}
+
+.avatar{
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+#avatar_image{
+    border: 2px solid black;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.change_avatar{
+    display: flex;
+    justify-content: center;
+    padding: 10px 10px;
+}
+
+#change_data_form{
+    display: flex;
+    font-size: 24px;
+}
+
+#change_data_form_left{
+    width: 50%;
+    display: grid;
+    padding: 5px;
+}
+#change_data_form_right{
+    padding: 5px;
+}
+
+.form_input{
+    float: left;
+}
+
+#form_sub{
+    width: 150px;
+    height: 40px;
+}
+
+input[type=text]{
+    height: 30px;
+}

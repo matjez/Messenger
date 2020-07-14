@@ -1,0 +1,87 @@
+a,
+a:visited,
+a:focus,
+a:active,
+a:link {
+  text-decoration: none;
+  outline: 0;
+}
+
+a {
+  color: currentColor;
+  transition: .2s ease-in-out;
+  
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  vertical-align: middle;
+  height: auto;
+  width: 100%;
+}
+
+#sidebar{
+  position: fixed;
+  width: 30%;
+  height: 75vh;
+  background: whitesmoke;
+  right: -30%;
+  transition: all 500ms linear;
+ }
+ #sidebar.active{
+  right:0px;
+ }
+ #sidebar ul li{
+  color: rgba(29, 25, 25, 0.9);
+  list-style: none;
+  padding: 15px 10px;
+  border-bottom: 1px solid rgba(100,100,100,0.3);
+ }
+ .toggle-btn{
+   position: absolute;
+   margin-top: 5px;
+   margin-left: 5px;
+   margin-bottom: 10px;
+   cursor: pointer;
+ }
+
+ .toggle-btn{
+  right: 10px;
+  position: absolute;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+}
+
+ .toggle-btn span{
+  display: block;
+  width: 30px;
+  height: 5px;
+  background: lightskyblue;
+  margin: 5px 0px;
+
+ }
+
+.sidebar_content{
+  position: absolute;
+  margin-top:35px;
+  height: calc(75vh - 35px);
+  width: 30%;
+  overflow: auto;
+}
+
+.sidebar_list{
+  cursor: pointer;
+  text-align:center;
+  font-size: 24px;
+}

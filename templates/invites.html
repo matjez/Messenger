@@ -1,0 +1,56 @@
+<style>
+
+        #head{
+            margin: 15px;
+            font-size: 24px;
+            text-align: center;
+        }
+        #block{
+            background-color: bisque;
+            width: 100%;
+            text-align:center;     
+            padding: 25px;      
+            
+        }
+        #name{
+            height: 30px;
+            background-color: bisque;
+            width: 100%;
+            font-size: 24px;
+        }
+        #accept{
+            color: green;
+            height: 20px;
+            background-color: bisque;
+            width:50%;
+            float: left;
+            font-size: 18px;
+        }
+        #ignore{
+            color: red;
+            height: 20px;
+            background-color: bisque;
+            float:left;
+            width:50%;
+            font-size: 18px;
+        }
+        a{
+            cursor:pointer;
+        }
+    
+    
+</style>
+<script>
+    function delete_block(e)
+        {
+            e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode);
+        }
+</script>
+<p id="head">Zaproszenia:</p>
+{% for inv in invites %}
+    <div id="block">
+        <div id="name">{{inv[0]}}</div>
+        <div id="accept"><a href="{{ url_for('accept_invite',name=inv[0]) }}" onclick="delete_block(this)">Akceptuj</a></div>
+        <div id="ignore"><a href="{{ url_for('ignore_invite',name=inv[0]) }}" onclick="delete_block(this)">Ignoruj</a></div>
+    </div>
+{% endfor %} 

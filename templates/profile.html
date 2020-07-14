@@ -1,0 +1,116 @@
+{% block content %}
+<html>
+    <head>
+        <meta charset="utf8"/>
+        <title>Messenger</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}"/>
+        <link rel="shortcut icon" href="{{url_for('static',filename='img/fav1.ico')}}"/>
+    </head>
+    <body>
+        <div class="banner">
+            <div class="banner_left">
+                <img src="{{url_for('static',filename='img/logo.png')}}" alt="MESSENGER" class="banner_logo"/>
+            </div>
+            <div class="banner_right">
+                <div class="dropdown">
+                    <button onclick="dropdown()" class="dropbutton">OPCJE</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="{{url_for('home')}}">Czat</a>
+                        <a href="{{url_for('profile')}}">Profil</a>
+                        <a href="{{url_for('settings')}}">Ustawienia</a>
+                        <a href="{{url_for('logout')}}" id="logout">Wyloguj</a>
+                    </div>
+                </div>
+            </div>
+            <script>
+
+                function dropdown() {
+                  document.getElementById("myDropdown").classList.toggle("show");
+                }
+                
+                window.onclick = function(event) {
+                  if (!event.target.matches('.dropbutton')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                      var openDropdown = dropdowns[i];
+                      if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                      }
+                    }
+                  }
+                }
+                </script>
+        </div>
+        <div class="left">
+            <div class="flex_options">
+                <div class="opt_row">
+                    <div class="opt">
+                        Informacje
+                    </div>
+                    <div class="opt">
+                        Dziennik logowań
+                    </div>
+                </div>
+                <div class="opt_row">
+                    <div class="opt">
+                        Pomoc
+                    </div>
+                    <div class="opt">
+                        Usuń konto
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="avatar">
+                <img id="avatar_image" src={{avatar_path}}/>
+                
+            </div>
+            <div class="change_avatar">
+                <form enctype="multipart/form-data" action="{{url_for('upload_image')}}" method="post">
+                    <label>
+                        <input id="image-file" name="image-file" type="file" accept="image/x-jpg,image/bmp,image/jpeg"/>
+                        (max 3MB)
+                    </label>
+                    <input type="submit" id="sub" value="Wyślij"/>
+                </form>
+                <!-- <button>Wybierz plik(max 250x250px)</button> -->
+            </div>
+            <div class="change_data">
+                <form name="change_data_form" action="{{url_for('change_user_data')}}" id="change_data_form">
+                    <div id="change_data_form_left">
+                        <label for="Telefon: ">Email: </label>
+                        <input type="email" name="email" val=""/>
+
+                        <label for="first_name">Imię: </label> 
+                        <input type="text" name="first_name" val="" class="form_input"/>
+
+                        <label for="last_name">Drugie imię: </label>
+                        <input type="text" name="second_name" val="" class="form_input"/>
+
+                        <label for="Telefon: ">Nazwisko: </label>
+                        <input type="text" name="last_name" val=""/>
+
+                        <label for="Telefon: ">Numer telefonu: </label>
+                        <input type="text" name="phone_number" val=""/>
+
+                        <label for="Telefon: ">Data urodzenia: </label>
+                        <input type="date" name="birth_date" val=""/>
+
+                        <input type="submit" name="Zmień" val="" id="form_sub"/>
+                    </div>
+                    <div id="change_data_form_right">
+                        <label for="last_name">Opis: </label>
+                        <textarea placeholder="max 100 znaków" rows="8" cols="75" name="description" form="change_data_form"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+            test
+        </div>
+    </body>
+</html>
+{% endblock content %}
+

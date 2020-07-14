@@ -1,0 +1,123 @@
+body{
+    margin: 0;
+}
+
+.banner{
+    width: auto;
+    background-image: linear-gradient(to top, #00d3ff, #00dfff, #00eafb, #00f5f4, #00ffe9);
+    height: 10vh;
+    margin: 0px;
+}
+
+.banner_left{
+    float:left;
+    width: 40%;
+    height: 10vh;
+}
+
+.banner_right{
+    width: 60%;
+    float:left;
+    height: 10vh;
+
+}
+
+.banner_logo{
+    width: auto;
+    height: 10vh;
+    margin-left: 25px;
+
+}
+
+.content{
+    width: 100%;
+    background-color: whitesmoke;
+    height: 75vh;
+    margin: 0px;
+
+}
+
+.left_content{
+    width:35%;
+    float: left;
+    padding-left: 5%;
+    
+}
+
+.right_content{
+    width:55%;
+    float: left;
+    padding-left: 5%;
+    
+}
+
+
+.footer{
+    box-sizing: border-box;
+    width: 100%;
+    background-image: linear-gradient(to top, #00d3ff, #00dfff, #00eafb, #00f5f4, #00ffe9);
+    height: 15vh;
+    margin: 0px;
+    text-align: center;
+    font-size: 24px;
+    padding-top: 20px;
+}
+
+.register input{
+    text-align: center;
+}
+
+
+a:hover{
+    color: red;
+
+}
+
+a {
+    text-decoration: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; 
+}
+
+.register{
+    width: 60%; 
+
+}
+
+.register input{
+    width: 450px;
+    height: 30px;
+    margin: 5px;     
+    font-size: 24px;
+}
+.register input[type=checkbox]{
+    width: 20px;
+    float: left;     
+}
+
+.login_form input{
+    width: 250px;
+    height: 20px;
+    margin: 5px;     
+    font-size: 18px;
+}
+
+.login_form input[type=submit]{
+    height: 30px;
+    width: 150px;
+}
+
+#accept_reg{
+    float: left;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: right;
+}
