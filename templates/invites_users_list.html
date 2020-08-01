@@ -20,6 +20,6 @@
 {% for usr in users_list %}
     <div id="user_block">
         <div id="user">{{usr[0]}}</div>
-        <div id="invite_button"><a href="{{ url_for('send_invite',name=usr[0]) }}" onclick="delete_block(this)">Zaproś</a></div>
+        <div id="invite_button"><a href="{{ url_for('send_invite',name=usr[0]) }}" onclick="delete_block(this)">Invite</a></div>
     </div>
 {% endfor %} 

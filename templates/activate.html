@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf8"/>
-        <title>Aktywacja konta</title>    
+        <title>Account activation</title>    
         <link rel="shortcut icon" href="{{url_for('static',filename='img/fav1.ico')}}"/>
         <link rel="stylesheet" href="{{url_for('static',filename='css/activate.css')}}"/>
     </head>
@@ -13,21 +13,21 @@
 
     <div id="content">
         <div id="window">
-        <p id="upper_text">Aktywuj swoje konto</p>
+        <p id="upper_text">Activate your account</p>
         <form action="{{url_for('activation_confirm')}}" method="POST">
             <input type="hidden" value="{{code}}" name="code"/>
             <input type="submit" value="Aktywuj" id="sub"/> 
-            <p id="bottom_text">Po kliknięciu zostaniesz przekierowany na stronę główną, gdzie możesz się zalogować.</p>
+            <p id="bottom_text">You will be redirected to home site where you can log in.</p>
         </form>
     </div>
         
     </div>    
 
     <div id="footer">
-        <a href="{{url_for('about')}}">O komunikatorze</a>
-        <a href="{{url_for('rules')}}">Regulamin</a>
-        <a href="{{url_for('help')}}">Pomoc</a>
-        <a href="{{url_for('login')}}">Rejestracja</a> 
+        <a href="{{url_for('about')}}">About</a>
+        <a href="{{url_for('rules')}}">Rules</a>
+        <a href="{{url_for('help')}}">Terms</a>
+        <a href="{{url_for('login')}}">Registration</a> 
 
     </div>
     </body>

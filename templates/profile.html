@@ -13,12 +13,12 @@
             </div>
             <div class="banner_right">
                 <div class="dropdown">
-                    <button onclick="dropdown()" class="dropbutton">OPCJE</button>
+                    <button onclick="dropdown()" class="dropbutton">Options</button>
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="{{url_for('home')}}">Czat</a>
-                        <a href="{{url_for('profile')}}">Profil</a>
-                        <a href="{{url_for('settings')}}">Ustawienia</a>
-                        <a href="{{url_for('logout')}}" id="logout">Wyloguj</a>
+                        <a href="{{url_for('home')}}">Chat</a>
+                        <a href="{{url_for('profile')}}">Profile</a>
+                        <a href="{{url_for('settings')}}">Settings</a>
+                        <a href="{{url_for('logout')}}" id="logout">Log out</a>
                     </div>
                 </div>
             </div>
@@ -46,18 +46,18 @@
             <div class="flex_options">
                 <div class="opt_row">
                     <div class="opt">
-                        Informacje
+                        Info
                     </div>
                     <div class="opt">
-                        Dziennik logowań
+                        Login log
                     </div>
                 </div>
                 <div class="opt_row">
                     <div class="opt">
-                        Pomoc
+                        Help
                     </div>
                     <div class="opt">
-                        Usuń konto
+                        Remove account
                     </div>
                 </div>
             </div>
@@ -83,25 +83,25 @@
                         <label for="Telefon: ">Email: </label>
                         <input type="email" name="email" val=""/>
 
-                        <label for="first_name">Imię: </label> 
+                        <label for="first_name">Name: </label> 
                         <input type="text" name="first_name" val="" class="form_input"/>
 
-                        <label for="last_name">Drugie imię: </label>
+                        <label for="last_name">Initial Name (optional): </label>
                         <input type="text" name="second_name" val="" class="form_input"/>
 
-                        <label for="Telefon: ">Nazwisko: </label>
+                        <label for="Telefon: ">Last name: </label>
                         <input type="text" name="last_name" val=""/>
 
-                        <label for="Telefon: ">Numer telefonu: </label>
+                        <label for="Telefon: ">Phone number: </label>
                         <input type="text" name="phone_number" val=""/>
 
-                        <label for="Telefon: ">Data urodzenia: </label>
+                        <label for="Telefon: ">Date of birth: </label>
                         <input type="date" name="birth_date" val=""/>
 
                         <input type="submit" name="Zmień" val="" id="form_sub"/>
                     </div>
                     <div id="change_data_form_right">
-                        <label for="last_name">Opis: </label>
+                        <label for="last_name">Description: </label>
                         <textarea placeholder="max 100 znaków" rows="8" cols="75" name="description" form="change_data_form"></textarea>
                     </div>
                 </form>

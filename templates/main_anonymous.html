@@ -16,7 +16,7 @@
                 <input type="password" name="password" placeholder="Hasło"/>
                 <input type="submit" name="sub" value="Zaloguj" />
             </form>
-            <a class="forgotten_password" href="{{url_for('forgotten_password')}}">Przypomnij hasło</a>
+            <a class="forgotten_password" href="{{url_for('forgotten_password')}}">Forgotten password</a>
             
         </div>
 
@@ -24,7 +24,7 @@
     </div>
     <div class="content">
         <div class="left_content">
-            <h1>ZAREJESTRUJ SIĘ</h1>
+            <h1>REGISTER</h1>
             <img src="static/img/reg.jpg" alt="Ni ma obrazka :(" style="width:450px;height:450px;"/>
         </div>
         <div class="right_content"> 
@@ -38,7 +38,7 @@
                 <input type="text" name="last_name" placeholder="Nazwisko"/><br/>
                 <input type="number" min="0" step="1" name="phone_number" placeholder="Numer telefonu"/><br/>
                 <input type="date" name="birth_date" placeholder="Data urodzenia" /><br/>
-                <h3 id="accept_reg">Akceptuję <a href="static/txt/reg.txt">regulamin</a></h3>
+                <h3 id="accept_reg">Accept <a href="static/txt/reg.txt">terms</a></h3>
                 <input type="checkbox" name="agreed" placeholder="Zgadzam się" /><br/>
                 <input type="submit" name="sub" value="Zarejestruj" onclick="return validate()"/><br/>
             </form> 
@@ -102,10 +102,10 @@
 
 
     <div class="footer">
-        <a href="{{url_for('about')}}">O komunikatorze</a>
-        <a href="{{url_for('rules')}}">Regulamin</a>
-        <a href="{{url_for('help')}}">Pomoc</a>
-        <a href="{{url_for('login')}}">Rejestracja</a> 
+        <a href="{{url_for('about')}}">About</a>
+        <a href="{{url_for('rules')}}">Rules</a>
+        <a href="{{url_for('help')}}">Terms</a>
+        <a href="{{url_for('login')}}">Registration</a> 
 
     </div>
 </body>

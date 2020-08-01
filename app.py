@@ -39,6 +39,14 @@ def db_insert(sql):
     conn.close()
     return True
 
+def send_mail(user,password,mailTo,message):
+    
+    server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+    server.ehlo()
+    server.login(user,password)
+    server.sendmail(user,mailTo,message.as_string())
+    server.close()
+
 def time_now():
     return datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")[:-3]
     
@@ -235,7 +243,115 @@ def logout():
 
 @app.route('/forgotten_password')
 def forgotten_password():
+    return render_template("remind_password.html")
+
+@app.route('/send_forgotten_pass_email', methods=['POST','GET'])
+def send_forgotten_pass_email():
+    if request.method == "POST":
+        data = request.form['identification']
+
+        def create_pass_change_id(user_id):
+            chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
+            ret = ""
+            for i in range(24):
+                ret += chars[randrange(62)]
+            
+            check_sql = "SELECT token FROM users WHERE token='%s'" % ret
+            if len(db_select_all(check_sql)) > 0:
+                create_pass_change_id(user_id)
+            else:
+                return ret    
+            
+        def send_change_email(user_mail, change_id):
+                link = "{}:{}/forgotten_password_site/{}".format(options["ip_address"],options["port"],change_id)
+
+                message = MIMEMultipart("alternative")
+                message["Subject"] = "Przypomnienie hasła"
+                message["From"] = "Messenger"
+                message["To"] = user_mail
+
+                text = """\
+                Zmiana hasła dla adresu {},
+                żeby w zmienić hasło kliknij w poniższy link, jeśli to nie ty zignoruj tą wiadomość.
+                {}
+                """.format(user_mail, link)
+                html = """\
+                <html>
+                <body>
+                    <p>
+                        Zmiana hasła dla adresu {},<br>
+                        żeby w zmienić hasło kliknij w poniższy link, jeśli to nie ty zignoruj tą wiadomość.
+                        <a href="{}">KLIKNIJ TUTAJ</a> <br>
+                        lub wklej link w przeglądarkę: {}
+                    </p><br>
+                </body>
+                </html>
+                """.format(user_mail, link, link)
+
+                part1 = MIMEText(text, "plain")
+                part2 = MIMEText(html, "html")
+
+                message.attach(part1)
+                message.attach(part2)
+
+                send_mail(options["email_address"],options["email_password"],data,message)
+
+        if "@" in data:
+            sql = "SELECT user_id FROM users WHERE email = '%s'" % data
+            user_id = db_select_one(sql)
+            if len(user_id) > 0:                
+                change_id = create_pass_change_id(user_id[0])
+                print(change_id)
+
+                sql = "INSERT INTO password_change  VALUES('{}','{}',0)".format(change_id,user_id[0])
+                db_insert(sql)
+
+                send_change_email(data, change_id)
+
+        else:
+            sql = "SELECT user_id, email FROM users WHERE login = '%s'" % data
+            user_data = db_select_one(sql)
+            if len(user_data[0]) > 0:
+                change_id = create_pass_change_id(user_data[0])
+                email = user_data[1]
+                print(change_id)
+
+                sql = "INSERT INTO password_change  VALUES('{}','{}',0)".format(change_id,user_data[0])
+                db_insert(sql)
+
+                send_change_email(email, change_id)
+                
     return redirect(url_for('home'))
+
+@app.route('/forgotten_password_site/<code>', methods=['POST','GET'])
+def forgotten_password_site(code):
+    if code:
+        sql = "SELECT status FROM password_change WHERE change_id='{}'".format(code)
+        value = db_select_one(sql)
+
+        if value[0] == 1:
+            return redirect(url_for('home'))
+        elif value[0] == 0:
+            return render_template('forgotten_password_site.html',code=code)
+        else:
+            return redirect(url_for('home'))
+    else:
+        return redirect(url_for('home'))
+
+        
+@app.route('/forgotten_password_confirm', methods=['POST','GET'])
+def forgotten_password_confirm():
+    if request.method == "POST":
+        change_id = request.form['code']
+        print(request.form['code'])
+        new_password = request.form['new_password']
+        sql = "UPDATE password_change SET status = 1 WHERE change_id = '{}'".format(change_id) 
+        db_insert(sql)
+        sql2 = "UPDATE users SET password='{}' WHERE user_id = (SELECT user_id FROM password_change WHERE change_id = '{}')".format(new_password, change_id)
+        db_insert(sql2)
+        return redirect(url_for('home'))
+    else:
+        return ('', 204)
 
 @app.route('/register', methods=['POST','GET'])
 def register():
@@ -272,6 +388,9 @@ def register():
         if len(password) < 8 or len(password) > 64 or password != password_repeat:
             return redirect(url_for('home'))
 
+        if "@" in username:
+            return redirect(url_for('home'))
+            
         if not re.match("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$",email,re.IGNORECASE):
             return redirect(url_for('home'))
 
@@ -310,16 +429,6 @@ def register():
             token = token_generator()
             sql3 = "INSERT INTO users VALUES(null,'%s','%s','%s','%s','%s','%s','%s','user',0,'%s',now(),'%s');" % (username,password,email,phone_number,first_name,second_name,last_name,birth_date,token)
             db_insert(sql3)
-            logs("USER","User %s created account." % username)
-
-            def send_mail(user,password,mailTo,message):
-                
-                server = smtplib.SMTP_SSL('smtp.gmail.com',465)
-                server.ehlo()
-                server.login(user,password)
-                server.sendmail(user,mailTo,message.as_string())
-                server.close()
-                logs("USER","Sent activation email to %s." % mailTo)
 
             def send_activation_mail(token,user_mail,user_name):
 
@@ -371,6 +480,7 @@ def activate(code):
         return render_template('activate.html',code=code)
     else:
         return ('', 204)
+
 @app.route('/activation_confirm', methods=['POST','GET'])
 def activation_confirm():
     if request.method == "POST":
@@ -520,6 +630,7 @@ def upload_image():
                 file.save(path)
                 return redirect(url_for('profile'))
         else:
+
             return redirect(url_for('profile'))
     else:
         return render_template('main_anonymous.html')
@@ -531,6 +642,7 @@ def settings():
 @app.route('/change_user_data')
 def change_user_data():
     return render_template("settings.html")
+
 
 app.secret_key = os.urandom(12)
 
