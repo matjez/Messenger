@@ -17,7 +17,14 @@ from email.mime.multipart import MIMEMultipart
 import re 
 
 def db_select_one(sql):
-    conn = mysql.connector.connect(host=options["database_address"],user=options["database_user"],password=options["database_password"],database=options["database_name"],auth_plugin='mysql_native_password')
+    conn = mysql.connector.connect(
+        host=options["database_address"],
+        user=options["database_user"],
+        password=options["database_password"],
+        database=options["database_name"],
+        auth_plugin='mysql_native_password'
+    )
+
     cursor = conn.cursor(buffered=True)
     cursor.execute(sql)
     ret = cursor.fetchone()
@@ -25,14 +32,22 @@ def db_select_one(sql):
     return ret
 
 def db_select_all(sql):
-    conn = mysql.connector.connect(host=options["database_address"],user=options["database_user"],password=options["database_password"],database=options["database_name"],auth_plugin='mysql_native_password')
+    conn = mysql.connector.connect(
+        host=options["database_address"],
+        user=options["database_user"],
+        password=options["database_password"],
+        database=options["database_name"],
+        auth_plugin='mysql_native_password'
+    )
+
     cursor = conn.cursor(buffered=True)
     cursor.execute(sql)
     conn.close()
     return cursor.fetchall()
 
 def db_insert(sql):
-    conn = mysql.connector.connect(host=options["database_address"],user=options["database_user"],password=options["database_password"],database=options["database_name"],auth_plugin='mysql_native_password')
+    conn = mysql.connector.connect(host=options["database_address"],
+    user=options["database_user"],password=options["database_password"],database=options["database_name"],auth_plugin='mysql_native_password')
     cursor = conn.cursor(buffered=True)
     cursor.execute(sql)
     conn.commit()

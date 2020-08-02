@@ -17,12 +17,12 @@
         </div>
         <div class="banner_right">
             <div class="dropdown">
-                <button onclick="dropdown()" class="dropbutton">OPCJE</button>
+                <button onclick="dropdown()" class="dropbutton">Options</button>
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="{{url_for('home')}}">Czat</a>
-                        <a href="{{url_for('profile')}}">Profil</a>
-                        <a href="{{url_for('settings')}}">Ustawienia</a>
-                        <a href="{{url_for('logout')}}" id="logout">Wyloguj</a>
+                        <a href="{{url_for('home')}}">Chat</a>
+                        <a href="{{url_for('profile')}}">Profile</a>
+                        <a href="{{url_for('settings')}}">Settings</a>
+                        <a href="{{url_for('logout')}}" id="logout">Log out</a>
                     </div>
             </div>
         </div>
@@ -75,39 +75,20 @@
 
  
                          $.ajax({
-                         type: 'POST',
-                         data: {"friend_name":window.current_user},
-                         url: "/info",
-                         success: function (data) {
+                            type: 'POST',
+                            data: {"friend_name":window.current_user},
+                            url: "/info",
+                            success: function (data) {
 
-                             $( ".sidebar_content" ).empty( );
-                             $(".sidebar_content").html(data);
+                                $( ".sidebar_content" ).empty( );
+                                $(".sidebar_content").html(data);
 
-                         },
-                         error: function(error) {
-                         console.log(error);
-                     }
-                 });                
+                            },
+                            error: function(error) {
+                            console.log(error);
+                        }
+                        });                
 
-                //         $(document).ready(function(){
-                //         $.ajax({
-                //         type: 'POST',
-                //         data: {"friend_name":window.current_user},
-                //         url: "/info",
-                //         success: function (data) {
-
-                //             $( ".sidebar_content" ).empty( );
-                //             $(".sidebar_content").html(data);
-
-                //         },
-                //         error: function(error) {
-                //         console.log(error);
-                //     }
-                // });
-                        
-                //     $(".sidebar_content").load("/info")
-                // });
-        
                         
                         socket.on( 'connect', function() {
                             socket.emit( 'message', {
@@ -138,14 +119,17 @@
             </div>
 
             <form class="window" action="" method="POST">
-                <textarea class="message" placeholder="Napisz wiadomość..."></textarea>
+                <textarea class="message" placeholder="Write a message..."></textarea>
                 <button id="send">Send</button>
             </form>
             
 
             <script type="text/javascript">
+
                 var socket = io.connect('http://' + document.domain + ':' + location.port);
+
                 socket.on( 'connect', function() {
+
                     socket.emit( 'message', {
                     friend_chat: friend_name,
                     message: ""

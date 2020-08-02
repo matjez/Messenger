@@ -13,8 +13,8 @@
         <div class="banner_right">
             <form class="login_form" action="{{url_for('login')}}" method="POST">
                 <input type="text" name="username" placeholder="Login" />
-                <input type="password" name="password" placeholder="Hasło"/>
-                <input type="submit" name="sub" value="Zaloguj" />
+                <input type="password" name="password" placeholder="Password"/>
+                <input type="submit" name="sub" value="Log in" />
             </form>
             <a class="forgotten_password" href="{{url_for('forgotten_password')}}">Forgotten password</a>
             
@@ -30,17 +30,17 @@
         <div class="right_content"> 
             <form class="register" action="{{url_for('register')}}" method="POST" id="register_form"><br/> 
                 <input type="text" name="username"  placeholder="Login"/><br/>
-                <input type="password" name="password" placeholder="Hasło"/><br/>
-                <input type="password" name="password_repeat" placeholder="Powtórz hasło"/><br/>
-                <input type="email" name="email" placeholder="E-mail"/><br/>
-                <input type="text" name="first_name" placeholder="Imię" /><br/>
-                <input type="text" name="second_name" placeholder="Drugie imię"/><br/>
-                <input type="text" name="last_name" placeholder="Nazwisko"/><br/>
-                <input type="number" min="0" step="1" name="phone_number" placeholder="Numer telefonu"/><br/>
-                <input type="date" name="birth_date" placeholder="Data urodzenia" /><br/>
+                <input type="password" name="password" placeholder="Password"/><br/>
+                <input type="password" name="password_repeat" placeholder="Repeat password"/><br/>
+                <input type="email" name="email" placeholder="Email"/><br/>
+                <input type="text" name="first_name" placeholder="Name" /><br/>
+                <input type="text" name="second_name" placeholder="Middle name"/><br/>
+                <input type="text" name="last_name" placeholder="Last name"/><br/>
+                <input type="number" min="0" step="1" name="phone_number" placeholder="Phone number"/><br/>
+                <input type="date" name="birth_date" placeholder="Date of birth" /><br/>
                 <h3 id="accept_reg">Accept <a href="static/txt/reg.txt">terms</a></h3>
-                <input type="checkbox" name="agreed" placeholder="Zgadzam się" /><br/>
-                <input type="submit" name="sub" value="Zarejestruj" onclick="return validate()"/><br/>
+                <input type="checkbox" name="agreed" placeholder="I agree" /><br/>
+                <input type="submit" name="sub" value="Register" onclick="return validate()"/><br/>
             </form> 
             <script>
                 function validate(){
@@ -56,42 +56,42 @@
                     var  agreed = document.forms["register_form"]["agreed"].value;
 
                     if(username.length < 3 || username.length > 32){
-                        alert("Nieprawidłowa długość loginu (5-32).");
+                        alert("Incorrect login length (5-32).");
                         return false;
                     } 
 
                     if(password.length < 8 || password.length > 64){
-                        alert("Nieprawidłowa długość hasła (8-64).");
+                        alert("Incorrect password length (8-64).");
                         return false;
                     } 
                  /* zrobic walidwanie znakow  */
   
                     if(password != password_repeat){
-                        alert("Podane hasła nie są identyczne.");
+                        alert("Given passwords are not identical.");
                         return false;
                     } 
                     if(email.length < 5 || email.length > 64){  /* walidacje mejla zrobic*/
-                        alert("Nieprawidłowy adres email.");
+                        alert("Incorrect email address.");
                         return false;
                     } 
                     if(first_name.length < 3 || first_name.length > 32){
-                        alert("Nieprawidłowa długość imienia (3-32).");
+                        alert("Incorrect name length (3-32).");
                         return false;
                     } 
                     if(first_name.length < 3 || first_name.length > 48){
-                        alert("Nieprawidłowa długość nazwiska (3-48).");
+                        alert("Incorrect last name length (3-48).");
                         return false;
                     } 
                     if(phone_number.length < 7 || phone_number.length > 11){
-                        alert("Nieprawidłowy numer telefonu.");
+                        alert("Incorrect phone number length.");
                         return false;
                     } 
                     if(birth_date == ""){
-                        alert("Nieprawidłowa data urodzenia.");
+                        alert("Incorrect date of birth length.");
                         return false;
                     } 
                     if(agreed != "on"){
-                        alert("Wymagana jest akceptacja regulaminu.");
+                        alert("You have to accept terms.");
                         return false;
                     } 
                 }
