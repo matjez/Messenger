@@ -1,0 +1,7 @@
+Flask==1.0.3
+Flask-Login==0.4.1
+Flask-SocketIO==4.2.1
+Flask-WTF==0.14.2
+Jinja2==2.10.1
+mysql-connector==2.2.9
+Werkzeug==0.15.4

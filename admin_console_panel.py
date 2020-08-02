@@ -53,20 +53,20 @@ def users_generator(num):
 
 
 print("""
-Konsola administratora strony
+Messenger administration
 
-0. Wyjście
-1. Dodawanie testowych użytkowników
-2. Zmiana ustawień serwera
+0. Exit
+1. Add test users
+2. Change server settings(Not working)
  """)
 
 while True:
-    inp = input("Wybierz opcję: ")
+    inp = input("Select optiion: ")
 
     if inp == "0" or inp=="exit":
         exit("Exit.")
     elif inp == "1":
-        x = int(input("Ilu testowych użytkowników dodać?: "))
+        x = int(input("Number of users: "))
         users_generator(x)
     else:
         pass

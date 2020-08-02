@@ -1,2 +1,2 @@
-1. Tak 
-2. Nie
+1. Yes
+2. No
