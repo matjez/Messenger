@@ -24,8 +24,8 @@
     </div>
     <div class="content">
         <div class="left_content">
-            <h1>REGISTER</h1>
-            <img src="static/img/reg.jpg" alt="Ni ma obrazka :(" style="width:450px;height:450px;"/>
+            <h1 id="register_inscription">Register now!</h1>
+            <img src="static/img/reg.png" alt="No picture :(" style="width:450px;height:450px;"/>
         </div>
         <div class="right_content"> 
             <form class="register" action="{{url_for('register')}}" method="POST" id="register_form"><br/> 
@@ -38,8 +38,10 @@
                 <input type="text" name="last_name" placeholder="Last name"/><br/>
                 <input type="number" min="0" step="1" name="phone_number" placeholder="Phone number"/><br/>
                 <input type="date" name="birth_date" placeholder="Date of birth" /><br/>
-                <h3 id="accept_reg">Accept <a href="static/txt/reg.txt">terms</a></h3>
-                <input type="checkbox" name="agreed" placeholder="I agree" /><br/>
+                <h3 id="accept_reg">Accept 
+                    <a href="static/txt/reg.txt">terms</a>
+                    <input type="checkbox" name="agreed" placeholder="I agree" /><br/>
+                </h3>
                 <input type="submit" name="sub" value="Register" onclick="return validate()"/><br/>
             </form> 
             <script>

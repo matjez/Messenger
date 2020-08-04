@@ -78,15 +78,13 @@
                 <!-- <button>Wybierz plik(max 250x250px)</button> -->
             </div>
             <div class="change_data">
-                <form name="change_data_form" action="{{url_for('change_user_data')}}" id="change_data_form">
+                <form name="change_data_form" action="{{url_for('change_user_data')}}" id="change_data_form" method="POST">
                     <div id="change_data_form_left">
-                        <label for="Telefon: ">Email: </label>
-                        <input type="email" name="email" value=""/>
 
                         <label for="first_name">Name: </label> 
                         <input type="text" name="first_name" value="" class="form_input"/>
 
-                        <label for="last_name">Initial Name (optional): </label>
+                        <label for="last_name">Second Name (optional): </label>
                         <input type="text" name="second_name" value="" class="form_input"/>
 
                         <label for="Telefon: ">Last name: </label>

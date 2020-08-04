@@ -15,6 +15,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import re 
+import hashlib
 
 def db_select_one(sql):
     conn = mysql.connector.connect(
@@ -238,7 +239,7 @@ def help(methods=['GET', 'POST']):
 def login():
     if request.method == "POST":
         login = request.form['username']
-        passwd = request.form['password']
+        passwd = hashlib.sha256(request.form['password'].encode()).hexdigest()
         sql = "SELECT login FROM users WHERE (login = '%s' OR email = '%s') AND password = '%s' AND active = 1;" % (login,login,passwd)
         username = db_select_all(sql)
         if len(username) > 0: # Logged in                                             
@@ -359,7 +360,7 @@ def forgotten_password_confirm():
     if request.method == "POST":
         change_id = request.form['code']
         print(request.form['code'])
-        new_password = request.form['new_password']
+        new_password = hashlib.sha256(request.form['password'].encode()).hexdigest()
         sql = "UPDATE password_change SET status = 1 WHERE change_id = '{}'".format(change_id) 
         db_insert(sql)
         sql2 = "UPDATE users SET password='{}' WHERE user_id = (SELECT user_id FROM password_change WHERE change_id = '{}')".format(new_password, change_id)
@@ -442,7 +443,10 @@ def register():
             
             # zrobic aktywacje konta na razie 1 
             token = token_generator()
-            sql3 = "INSERT INTO users VALUES(null,'%s','%s','%s','%s','%s','%s','%s','user',0,'%s',now(),'%s');" % (username,password,email,phone_number,first_name,second_name,last_name,birth_date,token)
+
+            password = hashlib.sha256(password.encode()).hexdigest()
+
+            sql3 = "INSERT INTO users VALUES(null,'%s','%s','%s','%s','%s','%s','%s','user',0,'%s',now(),'%s','');" % (username,password,email,phone_number,first_name,second_name,last_name,birth_date,token)
             db_insert(sql3)
 
             def send_activation_mail(token,user_mail,user_name):
@@ -654,9 +658,58 @@ def upload_image():
 def settings():
     return render_template("settings.html")
 
-@app.route('/change_user_data')
+@app.route('/change_user_data', methods=['POST','GET'])
 def change_user_data():
-    return render_template("settings.html")
+    if request.method == "POST":
+
+        first_name = request.form["first_name"]
+        second_name = request.form["second_name"]
+        last_name = request.form["last_name"]
+        phone_number = request.form["phone_number"]
+        birth_date = request.form["birth_date"]
+        description = request.form["description"]
+        
+        breaking = True
+
+        sql = "UPDATE users SET"
+
+        if len(first_name) >= 3 and len(first_name) <= 32:
+            sql += " first_name='{}',".format(first_name)
+            breaking = False
+
+        if len(second_name) >= 3 and len(first_name) <= 32:
+            sql += " second_name='{}',".format(second_name)
+            breaking = False
+
+        if len(last_name) >= 3 and len(first_name) <= 32:
+            sql += " last_name='{}',".format(last_name)
+            breaking = False
+
+        if len(phone_number) >= 7 and len(first_name) <= 32:
+            sql += " phone_number='{}',".format(phone_number)
+            breaking = False
+
+        if len(birth_date) > 0:
+            sql += " date_of_birth='{}',".format(birth_date)
+            breaking = False
+
+        if len(description) > 0:
+            sql += " description='{}',".format(description)
+            breaking = False
+
+        if breaking == True:
+            return redirect(url_for('profile')) 
+
+        id_sql = "SELECT user_id FROM users WHERE login='{}';".format(session["logged_in"])
+
+        user_id = db_select_one(id_sql)
+
+        sql = sql[:-1]
+        sql += " WHERE user_id={};".format(user_id[0])
+
+        db_insert(sql)
+
+    return redirect(url_for('profile'))
 
 
 app.secret_key = os.urandom(12)
