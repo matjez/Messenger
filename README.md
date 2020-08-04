@@ -19,7 +19,7 @@ Web app for chatting with friends.
  - Friends list
  - Private chats
  - Profile customization
- 
+  ![alt text](https://i.ibb.co/ScqTpPs/logged-in.png)
   ![alt text](https://i.ibb.co/DKNtJk1/more-info.png)
   ![alt text](https://i.ibb.co/MpvJ1pp/profile.png)
 
