@@ -1,5 +1,5 @@
 # About
-Web app for chatting with friends.
+Web app for chatting with friends. (Under development)
 
  ![alt text](https://i.ibb.co/ssd8tFk/registration.png)
 # Requirements
