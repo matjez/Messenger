@@ -1,10 +1,10 @@
-# Messenger
-Messenger web app
+# About
+Web app for chatting with friends.
 
  ![alt text](https://i.ibb.co/ssd8tFk/registration.png)
 # Requirements
- -Python 3+
- -requirements.txt
+ - Python 3+
+ - requirements.txt
  
  
 # How to start?
@@ -18,8 +18,9 @@ Messenger web app
  - Login system
  - Friends list
  - Private chats
- ![alt text](https://i.ibb.co/DKNtJk1/more-info.png)
  - Profile customization
+ 
+  ![alt text](https://i.ibb.co/DKNtJk1/more-info.png)
   ![alt text](https://i.ibb.co/MpvJ1pp/profile.png)
 
 
