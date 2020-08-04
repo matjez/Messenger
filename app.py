@@ -518,7 +518,7 @@ def info():
             friend_token = request.form['friend_name']
             username = session['logged_in']
 
-            sql = "SELECT users.user_id, login, email, phone_number, first_name, second_name, last_name, date_of_birth, date_of_create FROM users JOIN contacts ON(users.user_id=contacts.friend_id) WHERE contacts.user_id=(SELECT user_id FROM users WHERE login='{}') AND contacts.friend_id=(SELECT user_id FROM users WHERE token='{}');".format(username,friend_token)
+            sql = "SELECT users.user_id, login, email, phone_number, first_name, second_name, last_name, date_of_birth, date_of_create, description FROM users JOIN contacts ON(users.user_id=contacts.friend_id) WHERE contacts.user_id=(SELECT user_id FROM users WHERE login='{}') AND contacts.friend_id=(SELECT user_id FROM users WHERE token='{}');".format(username,friend_token)
             res = list(db_select_one(sql))
             if len(res) <0:
                 return ('', 204) 
