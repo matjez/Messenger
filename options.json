@@ -1,10 +1,10 @@
 {
     "ip_address": "127.0.0.1",
     "port": "5000",    
-    "email_address": "messenger.automat@gmail.com",
-    "email_password": "fsa5dgfD8vc!lj$9Pop@as1V2",
-    "database_name": "messenger",
-    "database_user": "root",
+    "email_address": "",
+    "email_password": "",
+    "database_name": "",
+    "database_user": "",
     "database_password": "",
-    "database_address": "localhost"
+    "database_address": ""
 }
