@@ -7,7 +7,7 @@ Messenger web app
  -requirements.txt
  
  
- # How to start?
+# How to start?
  
  1. Import your messenger.sql to your database.
  2. Setup fields in options.txt file.Email address is required for sending activation messages.(Make sure your mailbox allows you to use it in python script.)
