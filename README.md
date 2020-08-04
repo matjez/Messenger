@@ -4,12 +4,13 @@ Web app for chatting with friends. (Under development)
  ![alt text](https://i.ibb.co/ssd8tFk/registration.png)
 # Requirements
  - Python 3+
+ - phpMyAdmin
  - requirements.txt
  
  
 # How to start?
  
- 1. Import your messenger.sql to your database.
+ 1. Import your messenger.sql to your database(phpMyAdmin preffered).
  2. Setup fields in options.txt file.Email address is required for sending activation messages.(Make sure your mailbox allows you to use it in python script.)
  3. Run app.py file.
  
