@@ -46,7 +46,7 @@ def users_generator(num):
         last_name  = "TEST-USER"
         birth_date = "0000-00-00"
 
-        sql = "INSERT INTO users VALUES(null,'%s','%s','%s','%s','%s','%s','%s','test_user',1,'%s',%s,'%s');" % (username,password,email,phone_number,first_name,second_name,last_name,birth_date,'null',token_generator())
+        sql = "INSERT INTO users VALUES(null,'%s','%s','%s','%s','%s','%s','%s','test_user',1,'%s',%s,'%s','');" % (username,password,email,phone_number,first_name,second_name,last_name,birth_date,'null',token_generator())
         cursor.execute(sql)
         conn.commit()
     return print("{} users added.".format(num))
